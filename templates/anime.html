@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ anime.title or 'Anime' }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+    <style>
+        /* mesmo css que te enviei antes */
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('index') }}" class="back">← Voltar para Pesquisa</a>
+    <h1>{{ anime.title or 'Título não disponível' }}</h1>
+    <img src="{{ anime.image or anime.img }}" alt="{{ anime.title }}" />
+    <p><strong>Status:</strong> {{ anime.status or 'Desconhecido' }}</p>
+    <p><strong>Tipo:</strong> {{ anime.type or 'Desconhecido' }}</p>
+    <p><strong>Gêneros:</strong> <span class="genres">{{ anime.genres | join(', ') if anime.genres else 'N/A' }}</span></p>
+    <p><strong>Total de Episódios:</strong> {{ anime.totalEpisodes or 'N/A' }}</p>
+    <p>{{ anime.description or 'Sem descrição disponível.' }}</p>
+
+    <h2>Episódios</h2>
+    <div class="episodes">
+        {% if anime.episodes %}
+            {% for episode in anime.episodes %}
+                <a 
+                  href="https://hianimez.to/ver/{{ slugify(anime.title) }}-episodio-{{ episode.number }}" 
+                  class="episode" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  title="Assistir episódio {{ episode.number }}">
+                    Ep. {{ episode.number }}
+                </a>
+            {% endfor %}
+        {% else %}
+            <p>Sem episódios disponíveis.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
+
