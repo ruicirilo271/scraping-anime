@@ -2,3 +2,4 @@ fastapi
 uvicorn
 requests
 jinja2
+Flask==2.3.2
